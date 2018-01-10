@@ -34,7 +34,7 @@ public class Drivebase extends Subsystem implements Thread{
 		
 	}
 
-	public void controlLoops() {
+	public void loops() {
 
 		
 	}
