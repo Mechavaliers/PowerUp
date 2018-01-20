@@ -1,5 +1,8 @@
-package ca.team4519.powerup.subsystem;
+package ca.team4519.powerup.subsystems;
 
+import ca.team4519.powerup.Constants;
+import ca.team4519.powerup.Gains;
+import ca.team4519.lib.Pose;
 import ca.team4519.lib.*;
 import ca.team4519.lib.Thread;
 
@@ -12,10 +15,17 @@ public class Drivebase extends Subsystem implements Thread{
 		return thisInstance;
 	}
 	
-	public Drivebase() {	
-		thisInstance = this;
+	public interface loops {
+
 		
 	}
+	
+	private loops loop = null;
+	
+	public Drivebase() {	
+		thisInstance = this;	
+	}
+	
 
 	public void clearSensors() {
 
@@ -34,8 +44,9 @@ public class Drivebase extends Subsystem implements Thread{
 		
 	}
 
-	public void loops() {
 
+	@Override	
+	public void loops() {
 		
 	}
 

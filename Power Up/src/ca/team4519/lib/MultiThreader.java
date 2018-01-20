@@ -7,6 +7,10 @@ public class MultiThreader implements Thread {
 	private Threader threader;
 	private Vector<Thread> threads = new Vector<Thread>();
 
+	public MultiThreader(String name, double period) {
+		threader = new Threader(name, this, period);
+	}
+	
 	public void loops() {
 		int i;
 		for(i =0; i < threads.size(); i++) {
