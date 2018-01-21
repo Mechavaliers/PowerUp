@@ -1,7 +1,6 @@
 package ca.team4519.powerup;
 
 import ca.team4519.powerup.subsystems.Drivebase;
-import ca.team4519.powerup.subsystems.Rollers;
 import ca.team4519.lib.MechaIterativeRobot;
 import ca.team4519.lib.MultiThreader;
 import edu.wpi.first.wpilibj.Joystick;
