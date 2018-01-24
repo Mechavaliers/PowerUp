@@ -5,7 +5,8 @@ import ca.team4519.powerup.Gains;
 import edu.wpi.first.wpilibj.Talon;
 import ca.team4519.lib.*;
 import ca.team4519.lib.Thread;
-
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
 
@@ -17,12 +18,14 @@ public class Drivebase extends Subsystem implements Thread {
 	private final Talon leftDrive;
 	private final Talon rightDrive;
 	
+	private final Encoder leftDriveEncoder;
+	private final Encoder rightDriveEncoder;
+	
 	private final Solenoid shifter;
 	
 	private double QSA;
 	private final double turnSensitivity = 1.0;
 	
-	private boolean wantHigh;
 	private boolean isShifting;
 	
 	public static Drivebase grabInstance() {
@@ -30,7 +33,6 @@ public class Drivebase extends Subsystem implements Thread {
 	}
 	
 	public interface loops {
-
 		
 	}
 	
@@ -42,6 +44,8 @@ public class Drivebase extends Subsystem implements Thread {
 		
 		leftDrive = new Talon(Constants.leftDrive);
 		rightDrive = new Talon(Constants.rightDrive);
+		leftDriveEncoder = new Encoder(Constants.leftDriveEncoderA, Constants.leftDriveEncoderB, Constants.isLeftDriveEncoderFlipped, EncodingType.k4X);
+		rightDriveEncoder = new Encoder(Constants.rightDriveEncoderA, Constants.rightDriveEncoderB, isShifting, EncodingType.k4X);
 		shifter = new Solenoid(Constants.shifter);
 		
 	}
@@ -66,7 +70,6 @@ public class Drivebase extends Subsystem implements Thread {
 	}
 
 	public void clearSensors() {
-
 		
 	}
 
