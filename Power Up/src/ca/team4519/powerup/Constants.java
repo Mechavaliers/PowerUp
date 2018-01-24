@@ -26,6 +26,12 @@ public class Constants {
 		public static final double ticksToInches = 0.0;	//i forget the equation 	//TODO Update this with real value!
 		
 		public static final double clawOffset = 0.0;	//Center of claw to the ground in inches	//TODO Update this with real value!
+		
+		public static final double homePos = 0.0;	//TODO Update this with real value!
+		public static final double switchHeight = 0.0;	//TODO Update this with real value!
+		public static final double lowScaleHeight = 0.0;	//TODO Update this with real value!
+		public static final double scaleHeight = 0.0;	//TODO Update this with real value!
+		public static final double HighScaleHeight = 0.0;	//TODO Update this with real value!
 	}
 	
 	public static final class AutoDistances {

@@ -1,4 +1,4 @@
-package controllers;
+package ca.team4519.powerup.subsystems.controllers;
 
 import ca.team4519.powerup.Gains;
 import ca.team4519.lib.LiftPose;

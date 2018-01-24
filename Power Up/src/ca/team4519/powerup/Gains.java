@@ -50,14 +50,14 @@ public class Gains {
 		public static double liftAndCubeUp_I = 0.0;	//TODO Tune this
 		public static double liftAndCubeUp_D = 0.0;	//TODO Tune this
 		
-		public static double liftAndCubejustLiftUp_P = 0.0;	//TODO Tune this
-		public static double liftAndCubejustLiftUp_I = 0.0;	//TODO Tune this
-		public static double liftAndCubejustLiftUp_D = 0.0;	//TODO Tune this
+		public static double liftAndCubeDown_P = 0.0;	//TODO Tune this
+		public static double liftAndCubeDown_I = 0.0;	//TODO Tune this
+		public static double liftAndCubeDown_D = 0.0;	//TODO Tune this
 		
 		public static double lift_F = 0.0;	//TODO Tune this
 		public static double justLiftUp_P = 0.0;	//TODO Tune this
 		public static double justLiftUp_I = 0.0;	//TODO Tune this
-		public static double justLiftUp_d = 0.0;	//TODO Tune this
+		public static double justLiftUp_D = 0.0;	//TODO Tune this
 		
 		public static double liftjustLiftDown_P = 0.0;	//TODO Tune this
 		public static double liftjustLiftDown_I = 0.0;	//TODO Tune this
