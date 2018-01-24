@@ -18,13 +18,13 @@ public class Pose {
 		this.angularVel = angularVel;
 	}
 	
-	public void setOrigin() {
-		leftDist = 0;
-		rightDist = 0;
-		leftVel = 0;
-		rightVel = 0;
-		angularPos = 0;
-		angularVel = 0;
+	public void reset(double leftDist, double rightDist, double leftVel, double rightVel, double angularPos, double angularVel) {
+		this.leftDist = leftDist;
+		this.rightDist = rightDist;
+		this.leftVel = leftVel;
+		this.rightVel = rightVel;
+		this.angularPos = angularPos;
+		this.angularVel = angularVel;
 	}
 	
 	public double robotDistance() {

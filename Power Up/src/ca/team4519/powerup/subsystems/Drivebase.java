@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class Drivebase extends Subsystem implements Thread {
 
 	public static Drivebase thisInstance = new Drivebase();
-	public static DriveSetup tokoyoDrift = new DriveSetup();
 	
 	private final Talon leftDrive;
 	private final Talon rightDrive;
@@ -32,11 +31,11 @@ public class Drivebase extends Subsystem implements Thread {
 		return thisInstance;
 	}
 	
-	public interface loops {
+	public interface Controllers {
 		
 	}
 	
-	private loops loop = null;
+	private Controllers controller = null;
 
 	
 	public Drivebase() {	
@@ -137,6 +136,9 @@ public class Drivebase extends Subsystem implements Thread {
 
 	@Override	
 	public void loops() {
+		if(controller == null) {
+			return;
+		}
 		
 	}
 
