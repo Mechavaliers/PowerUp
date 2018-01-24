@@ -8,6 +8,7 @@ import ca.team4519.lib.Thread;
 import ca.team4519.lib.LiftPose;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -43,6 +44,7 @@ public class Lift  extends Subsystem implements Thread {
 		
 		liftMotor = new Talon(Constants.liftMotor);
 		liftEncoder = new Encoder(Constants.liftEncoderA, Constants.liftEncoderB, Constants.isLiftEncoderFlipped, EncodingType.k4X);
+		liftEncoder.setDistancePerPulse(Gains.Lift.inchesPerTick);
 		outterStageHomeSwitch = new DigitalInput(0);
 		innerStageHomeSwitch = new DigitalInput(0);
 		cubeDetector = new DigitalInput(0);
@@ -87,6 +89,14 @@ public class Lift  extends Subsystem implements Thread {
 		
 	}
 	
+	//FOR USE IN AUTONOMOUS ONLY!
+	public void wantHeight(double height) {
+		if(controller != null) {
+			controller = null;
+		}
+		controller = new LiftController(pose, height);
+	}
+	
 	public void setLiftPower(double power) {
 		liftMotor.set(power);
 	}
@@ -122,7 +132,7 @@ public class Lift  extends Subsystem implements Thread {
 
 
 	public void update() {
-		// TODO Auto-generated method stub
+		SmartDashboard.putNumber("Claw Height (Floor to Center)", liftEncoder.getDistance());
 		
 	}
 

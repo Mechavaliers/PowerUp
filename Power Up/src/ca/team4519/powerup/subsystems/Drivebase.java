@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Talon;
 import ca.team4519.lib.*;
 import ca.team4519.lib.Thread;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -63,13 +64,14 @@ public class Drivebase extends Subsystem implements Thread {
 		
 	}
 	
-	public void setLeftRightpower(DrivetrainOutput power) {
+	public void setLeftRightPower(DrivetrainOutput power) {
 		leftDrive.set(-power.leftOutput);
 		rightDrive.set(power.rightOutput);
 	}
 
 	public void clearSensors() {
-		
+		leftDriveEncoder.reset();
+		rightDriveEncoder.reset();
 	}
 
 	
@@ -123,13 +125,21 @@ public class Drivebase extends Subsystem implements Thread {
 	}
 
 	public void disableSubsystem() {
-
+		if(controller != null) {
+			controller = null;
+		}
+		setLeftRightPower(new DrivetrainOutput(0.0, 0.0));
 		
 	}
 
 
 	public void update() {
-
+		SmartDashboard.putNumber("Left Encoder Dist (Inches)", leftDriveEncoder.get());
+		SmartDashboard.putNumber("Left Encoder Velocity (Inches/Sec)", leftDriveEncoder.getRate());
+		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.get());
+		SmartDashboard.putNumber("Right Encoder Velocity (Inches/Sec)", rightDriveEncoder.getRate());
+		
+		SmartDashboard.putBoolean("Drive Controller Status (Should on be Active in auton)", (controller == null)? true : false);
 		
 	}
 

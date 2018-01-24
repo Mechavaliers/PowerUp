@@ -43,7 +43,7 @@ public class Gains {
 	public static final class Lift {
 		private Lift() {}
 		
-		public static double inchesPerTicks = 0.0;	//TODO Figure out how the math for this
+		public static double inchesPerTick = 0.0;	//TODO Figure out how the math for this
 		
 		public static double liftAndCube_F = 0.0;	//TODO Tune this
 		public static double liftAndCubeUp_P = 0.0;	//TODO Tune this
