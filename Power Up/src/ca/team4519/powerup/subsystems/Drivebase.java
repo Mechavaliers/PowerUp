@@ -9,7 +9,7 @@ import ca.team4519.lib.Thread;
 import edu.wpi.first.wpilibj.Solenoid;
 
 
-public class Drivebase extends Subsystem implements Thread{
+public class Drivebase extends Subsystem implements Thread {
 
 	public static Drivebase thisInstance = new Drivebase();
 	public static DriveSetup tokoyoDrift = new DriveSetup();

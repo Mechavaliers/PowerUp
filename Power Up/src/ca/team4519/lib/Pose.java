@@ -2,12 +2,12 @@ package ca.team4519.lib;
 
 public class Pose {
 
-	public double leftDist;
-	public double rightDist;
-	public double leftVel;
-	public double rightVel;
-	public double angularPos;
-	public double angularVel;
+	private double leftDist;
+	private double rightDist;
+	private double leftVel;
+	private double rightVel;
+	private double angularPos;
+	private double angularVel;
 	
 	public Pose(double leftDist, double rightDist, double leftVel, double rightVel, double angularPos, double angularVel) {
 		this.leftDist = leftDist;
