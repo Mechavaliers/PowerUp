@@ -3,20 +3,20 @@ package ca.team4519.lib;
 public class LiftPose {
 
 	private double rawValue;
-	private double distToTop;
-	private double distToBottom;
+	private double liftVel;
+
 	private boolean hasCube;
 	
-	public LiftPose (double rawValue, double distToTop, double distToBottom, boolean hasCube) {
+	public LiftPose (double rawValue, double velocity, boolean hasCube) {
 		this.rawValue = rawValue;
-		this.distToTop = distToTop;
-		this.distToBottom = distToBottom;
+		this.liftVel = velocity;
+		this.hasCube = hasCube;
+
 	}
 	
-	public void reset(double rawValue, double distToTop, double distToBottom, boolean hasCube) {
+	public void reset(double rawValue, double velocity, boolean hasCube) {
 		this.rawValue = rawValue;
-		this.distToTop = distToTop;
-		this.distToBottom = distToBottom;
+		this.liftVel = velocity;
 		this.hasCube = hasCube;
 	}
 
@@ -24,15 +24,12 @@ public class LiftPose {
 		return rawValue;
 	}
 	
-	public double distToTop() {
-		return distToTop;
+	public double getLiftVelocity() {
+		return liftVel;
 	}
-	
-	public double distToBottom() {
-		return distToBottom;
-	}
-	
+		
 	public boolean cube() {
 		return hasCube;
 	}
+
 }

@@ -19,13 +19,13 @@ public class Lift  extends Subsystem implements Thread {
 	
 	private final Talon liftMotor;
 	private final Encoder liftEncoder;
-	private final DigitalInput outterStageHomeSwitch;
-	private final DigitalInput innerStageHomeSwitch;
+	private final DigitalInput liftSecondStageHomeSwitch;
+	private final DigitalInput liftThirdStageHomeSwitch;
 	private final DigitalInput cubeDetector;
 	
 	private boolean canMove;
 	
-	public LiftPose pose = new LiftPose(Constants.ElevatorConstants.clawOffset, 0, 0, true);
+	public LiftPose pose = new LiftPose(Constants.ElevatorConstants.clawOffset, 0, true);
 	
 	public static Lift grabInstance() {
 		return thisInstance;
@@ -45,9 +45,9 @@ public class Lift  extends Subsystem implements Thread {
 		liftMotor = new Talon(Constants.liftMotor);
 		liftEncoder = new Encoder(Constants.liftEncoderA, Constants.liftEncoderB, Constants.isLiftEncoderFlipped, EncodingType.k4X);
 		liftEncoder.setDistancePerPulse(Gains.Lift.inchesPerTick);
-		outterStageHomeSwitch = new DigitalInput(0);
-		innerStageHomeSwitch = new DigitalInput(0);
-		cubeDetector = new DigitalInput(0);
+		liftSecondStageHomeSwitch = new DigitalInput(Constants.liftSecondStageHomeSwitch);
+		liftThirdStageHomeSwitch = new DigitalInput(Constants.liftThridStageHomeSwitch);
+		cubeDetector = new DigitalInput(Constants.cubeDetectorSwitch);
 	}
 	
 	public void setHeight(boolean wantHome, boolean wantSwitchHeight, boolean wantLowScale, boolean wantScale,boolean wantHighScale) {
@@ -101,7 +101,6 @@ public class Lift  extends Subsystem implements Thread {
 		liftMotor.set(power);
 	}
 	
-	@Override
 	public void loops() {
 		if(controller == null) {
 			return;
@@ -111,12 +110,12 @@ public class Lift  extends Subsystem implements Thread {
 	}
 	
 	public LiftPose getLiftPose() {
-		pose.reset(liftEncoder.getDistance(), 0.0, 0.0, cubeDetector.get());
+		pose.reset(liftEncoder.getDistance(), liftEncoder.getRate(), cubeDetector.get());
 		return pose;
 	}
 	
 	public boolean isHomed() {
-		return (outterStageHomeSwitch.get() && innerStageHomeSwitch.get())? true : false;
+		return (liftSecondStageHomeSwitch.get() && liftThirdStageHomeSwitch.get())? true : false;
 	}
 
 	public void clearSensors() {

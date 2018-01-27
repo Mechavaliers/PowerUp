@@ -2,13 +2,13 @@ package ca.team4519.powerup;
 
 public class Constants {
 
-	public static final int leftDrive = 0;
-	public static final int rightDrive = 1;
+	public static final int leftDrive = 0;	//TODO Update this with real value!
+	public static final int rightDrive = 1;	//TODO Update this with real value!
 	
-	public static final int leftDriveEncoderA = 0;
-	public static final int leftDriveEncoderB = 1;
-	public static final int rightDriveEncoderA  = 2;
-	public static final int rightDriveEncoderB = 3;
+	public static final int leftDriveEncoderA = 0;	//TODO Update this with real value!
+	public static final int leftDriveEncoderB = 1;	//TODO Update this with real value!
+	public static final int rightDriveEncoderA  = 2;	//TODO Update this with real value!
+	public static final int rightDriveEncoderB = 3;	//TODO Update this with real value!
 	
 	public static final boolean isLeftDriveEncoderFlipped = false;	//TODO Update this with real value!
 	public static final boolean isRightDruveEncoderFlipped = false;	//TODO Update this with real value!
@@ -19,6 +19,12 @@ public class Constants {
 	public static final int liftEncoderA = 4;	//TODO Update this with real value!
 	public static final int liftEncoderB = 5;	//TODO Update this with real value!
 	public static final boolean isLiftEncoderFlipped = false;	//TODO Update this with real value!
+	
+	public static final int liftSecondStageHomeSwitch = 6;	//TODO Update this with real value!
+	public static final int liftThridStageHomeSwitch = 7;	//TODO Update this with real value!
+	public static final int cubeDetectorSwitch = 8;	//TODO Update this with real value!
+	
+	public static final int plowControl = 1;	//TODO Update this with real value!
 	
 	public static final class ElevatorConstants {
 		private ElevatorConstants() {}
@@ -39,7 +45,7 @@ public class Constants {
 		
 		//All units are in inches & Degrees
 		
-		public static final double autoLine = 10.0;	//TODO Update with real value!
+		public static final double autoLine = 10.0;	//Distance from diamond plate in INCHES	//TODO Update with real value!
 	}
 	
 }
