@@ -2,26 +2,26 @@ package ca.team4519.lib;
 
 public class LiftPose {
 
-	private double rawValue;
+	private double height;
 	private double liftVel;
 
 	private boolean hasCube;
 	
-	public LiftPose (double rawValue, double velocity, boolean hasCube) {
-		this.rawValue = rawValue;
+	public LiftPose (double height, double velocity, boolean hasCube) {
+		this.height = height;
 		this.liftVel = velocity;
 		this.hasCube = hasCube;
 
 	}
 	
-	public void reset(double rawValue, double velocity, boolean hasCube) {
-		this.rawValue = rawValue;
+	public void reset(double height, double velocity, boolean hasCube) {
+		this.height = height;
 		this.liftVel = velocity;
 		this.hasCube = hasCube;
 	}
 
 	public double height() {
-		return rawValue;
+		return height;
 	}
 	
 	public double getLiftVelocity() {

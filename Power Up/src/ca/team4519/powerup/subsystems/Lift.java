@@ -50,6 +50,44 @@ public class Lift  extends Subsystem implements Thread {
 		cubeDetector = new DigitalInput(Constants.cubeDetectorSwitch);
 	}
 	
+	public void liftACube(double targetHeight, double velocity) {
+		double correctedVel = Math.min(Gains.Lift.LIFT_MAX_VELOCITY, velocity);
+		controller = new LiftController(getLiftData(), targetHeight, correctedVel);
+	}
+	
+	public void liftACube(double targetHeight) {
+		liftACube(targetHeight, Gains.Lift.LIFT_MAX_VELOCITY);
+	}
+	
+	public void liftALift(double targetHeight, double velocity) {
+		double correctedVel = Math.min(Gains.Lift.LIFT_MAX_VELOCITY, velocity);
+		controller = new LiftController(getLiftData(), targetHeight, correctedVel);
+	}
+	
+	public void liftALift(double targetHeight) {
+		liftALift(targetHeight, Gains.Lift.LIFT_MAX_VELOCITY);
+	}
+	
+	public void lowerACube(double targetHeight, double velocity) {
+		double correctedVel = Math.min(Gains.Lift.LIFT_MAX_VELOCITY, velocity);
+		controller = new LiftController(getLiftData(), targetHeight, correctedVel);
+	}
+	
+	public void lowerACube(double targetHeight) {
+		lowerACube(targetHeight, Gains.Lift.LIFT_MAX_VELOCITY);
+	}
+	
+	public void lowerALift(double targetHeight, double velocity) {
+		double correctedVel = Math.min(Gains.Lift.LIFT_MAX_VELOCITY, velocity);
+		controller = new LiftController(getLiftData(), targetHeight, correctedVel);
+	}
+	
+	public void lowerALift(double targetHeight) {
+		lowerALift(targetHeight, Gains.Lift.LIFT_MAX_VELOCITY);
+	}
+	
+	
+	/*
 	public void setHeight(boolean wantHome, boolean wantSwitchHeight, boolean wantLowScale, boolean wantScale,boolean wantHighScale) {
 		
 		if(canMove && wantHome) {
@@ -88,14 +126,8 @@ public class Lift  extends Subsystem implements Thread {
 		}
 		
 	}
-	
-	//FOR USE IN AUTONOMOUS ONLY!
-	public void wantHeight(double height) {
-		if(controller != null) {
-			controller = null;
-		}
-		controller = new LiftController(pose, height);
-	}
+	*/
+
 	
 	public void setLiftPower(double power) {
 		liftMotor.set(power);
@@ -105,11 +137,11 @@ public class Lift  extends Subsystem implements Thread {
 		if(controller == null) {
 			return;
 		}
-		liftMotor.set(controller.update(getLiftPose()));
+		liftMotor.set(controller.update(getLiftData()));
 		
 	}
 	
-	public LiftPose getLiftPose() {
+	public LiftPose getLiftData() {
 		pose.reset(liftEncoder.getDistance(), liftEncoder.getRate(), cubeDetector.get());
 		return pose;
 	}

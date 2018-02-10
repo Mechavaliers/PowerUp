@@ -43,26 +43,40 @@ public class Gains {
 	public static final class Lift {
 		private Lift() {}
 		
+		public static double CONTROL_LOOP_TIME = 0.01;	// 1 Millisecond
+		
 		public static double inchesPerTick = 0.0;	//TODO Figure out how the math for this
 		
-		public static double liftAndCube_F = 0.0;	//TODO Tune this
-		public static double liftAndCubeUp_P = 0.0;	//TODO Tune this
-		public static double liftAndCubeUp_I = 0.0;	//TODO Tune this
-		public static double liftAndCubeUp_D = 0.0;	//TODO Tune this
+		public static double Lift_Tollerance = 0.0; //TODO pick a value
 		
-		public static double liftAndCubeDown_P = 0.0;	//TODO Tune this
-		public static double liftAndCubeDown_I = 0.0;	//TODO Tune this
-		public static double liftAndCubeDown_D = 0.0;	//TODO Tune this
+		public static double LIFT_MAX_VELOCITY = 10.0;	//TODO Calculate this
+		public static double LIFT_MAX_ACCELERATION = 5.0;	//TODO calculate this
+				
+		public static double LiftAndCube_F = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_P = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_I = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_D = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_V = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_A = 0.0;	//TODO Tune this
 		
-		public static double lift_F = 0.0;	//TODO Tune this
-		public static double justLiftUp_P = 0.0;	//TODO Tune this
-		public static double justLiftUp_I = 0.0;	//TODO Tune this
-		public static double justLiftUp_D = 0.0;	//TODO Tune this
+		public static double LiftAndCubeDown_P = 0.0;	//TODO Tune this
+		public static double LiftAndCubeDown_I = 0.0;	//TODO Tune this
+		public static double LiftAndCubeDown_D = 0.0;	//TODO Tune this
+		public static double LiftAndCubeDown_V = 0.0;	//TODO Tune this
+		public static double LiftAndCubeDown_A = 0.0;	//TODO Tune this
 		
-		public static double liftjustLiftDown_P = 0.0;	//TODO Tune this
-		public static double liftjustLiftDown_I = 0.0;	//TODO Tune this
-		public static double liftjustLiftDown_D = 0.0;	//TODO Tune this
+		public static double Lift_F = 0.0;	//TODO Tune this
+		public static double JustLiftUp_P = 0.0;	//TODO Tune this
+		public static double JustLiftUp_I = 0.0;	//TODO Tune this
+		public static double JustLiftUp_D = 0.0;	//TODO Tune this
+		public static double JustLiftUp_V = 0.0;	//TODO Tune this
+		public static double JustLiftUp_A = 0.0;	//TODO Tune this
 		
+		public static double LiftjustLiftDown_P = 0.0;	//TODO Tune this
+		public static double LiftjustLiftDown_I = 0.0;	//TODO Tune this
+		public static double LiftjustLiftDown_D = 0.0;	//TODO Tune this
+		public static double LiftjustLiftDown_V = 0.0;	//TODO Tune this
+		public static double LiftjustLiftDown_A = 0.0;	//TODO Tune this
 		
 	}
 	

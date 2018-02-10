@@ -1,51 +1,43 @@
 package ca.team4519.powerup.subsystems.controllers;
 
 import ca.team4519.powerup.Gains;
+
+import com.team254.lib.trajectory.TrajectoryFollower;
+import com.team254.lib.trajectory.TrajectoryFollower.TrajectorySetpoint;
+
 import ca.team4519.lib.LiftPose;
 import ca.team4519.lib.control.LiftPID;
 import ca.team4519.powerup.subsystems.Lift.Controllers;
 
 public class LiftController implements Controllers{
-
-	LiftPID controller;
 	
-	public LiftController(LiftPose startingPose, double target) {
+	private TrajectoryFollowingController controller;
+	
+	public LiftController(LiftPose startingPos, double goalPos, double maxVel) {
+		TrajectoryFollower.TrajectoryConfig configuration = new TrajectoryFollower.TrajectoryConfig();
+		configuration.dt = Gains.Lift.CONTROL_LOOP_TIME;
+		configuration.max_acc = Gains.Lift.LIFT_MAX_ACCELERATION;
+		configuration.max_vel = maxVel;
 		
-		controller = new LiftPID();
+		controller = new TrajectoryFollowingController(
+				Gains.Lift.LiftAndCubeUp_P, 
+				Gains.Lift.LiftAndCubeUp_I, 
+				Gains.Lift.LiftAndCubeUp_D, 
+				Gains.Lift.LiftAndCubeUp_V, 
+				Gains.Lift.LiftAndCubeUp_A, 
+				Gains.Lift.Lift_Tollerance, 
+				configuration);
 		
-		if(startingPose.cube()) {
-			if(startingPose.height() < target) {
-				controller.set_P(Gains.Lift.liftAndCubeUp_P);
-				controller.set_I(Gains.Lift.liftAndCubeUp_I);
-				controller.set_D(Gains.Lift.liftAndCubeUp_D);
-				controller.set_F(Gains.Lift.liftAndCube_F);
-			}else if(startingPose.height() > target) {
-				controller.set_P(Gains.Lift.liftAndCubeDown_P);
-				controller.set_I(Gains.Lift.liftAndCubeDown_I);
-				controller.set_D(Gains.Lift.liftAndCubeDown_D);
-				controller.set_F(Gains.Lift.liftAndCube_F);
-			}
-		}else {
-			if(startingPose.height() < target) {
-				controller.set_P(Gains.Lift.justLiftUp_P);
-				controller.set_I(Gains.Lift.justLiftUp_I);
-				controller.set_D(Gains.Lift.justLiftUp_D);
-				controller.set_F(Gains.Lift.lift_F);
-			}else if(startingPose.height() > target) {
-				controller.set_P(Gains.Lift.liftjustLiftDown_P);
-				controller.set_I(Gains.Lift.liftjustLiftDown_I);
-				controller.set_D(Gains.Lift.liftjustLiftDown_D);
-				controller.set_F(Gains.Lift.lift_F);
-			}
-		}
-		
-		controller.setTarget(target);
-		
+		TrajectorySetpoint startingPosition = new TrajectorySetpoint();
+		startingPosition.pos = 0;
+		startingPosition.vel = 0;
+		controller.setTarget(startingPosition, goalPos);
 	}
+
 	
 	public double update(LiftPose pose) {
-		controller.update(pose.height());
-		return controller.getOutput();
+		controller.update(pose.height(), pose.getLiftVelocity());
+		return controller.get();
 		
 	}
 	

@@ -5,9 +5,11 @@ import ca.team4519.powerup.Gains;
 import edu.wpi.first.wpilibj.Talon;
 import ca.team4519.lib.*;
 import ca.team4519.lib.Thread;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 
 
@@ -22,6 +24,8 @@ public class Drivebase extends Subsystem implements Thread {
 	private final Encoder rightDriveEncoder;
 	
 	private final Solenoid shifter;
+	
+	private final AHRS navX;
 	
 	private double QSA;
 	private final double turnSensitivity = 1.0;
@@ -47,6 +51,7 @@ public class Drivebase extends Subsystem implements Thread {
 		leftDriveEncoder = new Encoder(Constants.leftDriveEncoderA, Constants.leftDriveEncoderB, Constants.isLeftDriveEncoderFlipped, EncodingType.k4X);
 		rightDriveEncoder = new Encoder(Constants.rightDriveEncoderA, Constants.rightDriveEncoderB, isShifting, EncodingType.k4X);
 		shifter = new Solenoid(Constants.shifter);
+		navX = new AHRS(SPI.Port.kMXP, (byte) 100);
 		
 	}
 	
@@ -138,7 +143,8 @@ public class Drivebase extends Subsystem implements Thread {
 		SmartDashboard.putNumber("Left Encoder Velocity (Inches/Sec)", leftDriveEncoder.getRate());
 		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.get());
 		SmartDashboard.putNumber("Right Encoder Velocity (Inches/Sec)", rightDriveEncoder.getRate());
-		
+		SmartDashboard.putNumber("nav x angle?", navX.getAngle());
+		SmartDashboard.putNumber("nav x fused heading", navX.getFusedHeading());
 		SmartDashboard.putBoolean("Drive Controller Status (Should on be Active in auton)", (controller == null)? true : false);
 		
 	}
