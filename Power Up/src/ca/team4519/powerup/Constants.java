@@ -2,13 +2,13 @@ package ca.team4519.powerup;
 
 public class Constants {
 
-	public static final int leftDrive = 0;	//TODO Update this with real value!
-	public static final int rightDrive = 1;	//TODO Update this with real value!
+	public static final int leftDrive = 9;	//TODO Update this with real value!
+	public static final int rightDrive = 8;	//TODO Update this with real value!
 	
-	public static final int leftDriveEncoderA = 0;	//TODO Update this with real value!
-	public static final int leftDriveEncoderB = 1;	//TODO Update this with real value!
-	public static final int rightDriveEncoderA  = 2;	//TODO Update this with real value!
-	public static final int rightDriveEncoderB = 3;	//TODO Update this with real value!
+	public static final int leftDriveEncoderA = 6;	//TODO Update this with real value!
+	public static final int leftDriveEncoderB = 7;	//TODO Update this with real value!
+	public static final int rightDriveEncoderA  = 0;	//TODO Update this with real value!
+	public static final int rightDriveEncoderB = 1;	//TODO Update this with real value!
 	
 	public static final boolean isLeftDriveEncoderFlipped = false;	//TODO Update this with real value!
 	public static final boolean isRightDruveEncoderFlipped = false;	//TODO Update this with real value!
@@ -16,8 +16,8 @@ public class Constants {
 	public static final int shifter = 0;
 	
 	public static final int liftMotor = 2;	//TODO Update this with real value!
-	public static final int liftEncoderA = 4;	//TODO Update this with real value!
-	public static final int liftEncoderB = 5;	//TODO Update this with real value!
+	public static final int liftEncoderA = 8;	//TODO Update this with real value!
+	public static final int liftEncoderB = 9;	//TODO Update this with real value!
 	public static final boolean isLiftEncoderFlipped = false;	//TODO Update this with real value!
 	
 	public static final int liftSecondStageHomeSwitch = 6;	//TODO Update this with real value!
