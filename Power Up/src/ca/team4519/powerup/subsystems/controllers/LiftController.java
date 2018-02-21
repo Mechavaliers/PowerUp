@@ -11,7 +11,7 @@ import ca.team4519.powerup.subsystems.Lift.Controllers;
 
 public class LiftController implements Controllers{
 	
-	private TrajectoryFollowingController controller;
+	public TrajectoryFollowingController controller;
 	
 	public LiftController(LiftPose startingPos, double goalPos, double maxVel) {
 		TrajectoryFollower.TrajectoryConfig configuration = new TrajectoryFollower.TrajectoryConfig();
@@ -29,11 +29,18 @@ public class LiftController implements Controllers{
 				configuration);
 		
 		TrajectorySetpoint startingPosition = new TrajectorySetpoint();
-		startingPosition.pos = 0;
-		startingPosition.vel = 0;
+		startingPosition.pos = startingPos.height();
+		startingPosition.vel = startingPos.getLiftVelocity();
 		controller.setTarget(startingPosition, goalPos);
 	}
 
+	public void changeSetpoint(TrajectoryFollower.TrajectorySetpoint currentSetpoint, double newSetpoint) {
+		controller.setTarget(currentSetpoint, newSetpoint);
+	}
+	
+	public TrajectoryFollower.TrajectorySetpoint getSetpoint() {
+		return controller.getSetpoint();
+	}
 	
 	public double update(LiftPose pose) {
 		controller.update(pose.height(), pose.getLiftVelocity());

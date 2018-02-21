@@ -10,7 +10,7 @@ public abstract class Task {
 	
 	public abstract void update();
 	
-	public abstract void done();
+	public abstract boolean done();
 	
 	public abstract void start();
 	

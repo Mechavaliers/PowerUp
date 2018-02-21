@@ -36,6 +36,10 @@ public class TrajectoryFollowingController extends Controller{
 	public double get() {
 		return result;
 	}
+	
+	public TrajectoryFollower.TrajectorySetpoint getSetpoint() {
+		return tController.getCurrentSetpoint();
+	}
 		
 	@Override
 	public void reset() {

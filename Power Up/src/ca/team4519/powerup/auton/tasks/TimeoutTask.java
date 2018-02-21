@@ -13,7 +13,7 @@ public class TimeoutTask extends Task {
 
 	@Override
 	public boolean completed() {
-		return false;
+		return ((Timer.getFPGATimestamp() - startTime) >= timeout)? true : false;
 	}
 
 	@Override
@@ -21,7 +21,8 @@ public class TimeoutTask extends Task {
 	}
 
 	@Override
-	public void done() {
+	public boolean done() {
+		return false;
 	}
 
 	@Override

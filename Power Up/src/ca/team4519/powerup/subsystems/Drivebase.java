@@ -2,6 +2,8 @@ package ca.team4519.powerup.subsystems;
 
 import ca.team4519.powerup.Constants;
 import ca.team4519.powerup.Gains;
+import ca.team4519.powerup.subsystems.controllers.*;
+import ca.team4519.lib.Pose;
 import edu.wpi.first.wpilibj.Talon;
 import ca.team4519.lib.*;
 import ca.team4519.lib.Thread;
@@ -11,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 
 public class Drivebase extends Subsystem implements Thread {
@@ -26,18 +30,21 @@ public class Drivebase extends Subsystem implements Thread {
 	private final Solenoid shifter;
 	
 	private final AHRS navX;
+	AnalogGyro gyro;
 	
 	private double QSA;
 	private final double turnSensitivity = 1.0;
 	
 	private boolean isShifting;
 	
+	Pose pose = new Pose(0, 0, 0, 0, 0, 0);
+	
 	public static Drivebase grabInstance() {
 		return thisInstance;
 	}
 	
 	public interface Controllers {
-		
+		DrivetrainOutput update(Pose pose);
 	}
 	
 	private Controllers controller = null;
@@ -49,10 +56,31 @@ public class Drivebase extends Subsystem implements Thread {
 		leftDrive = new Talon(Constants.leftDrive);
 		rightDrive = new Talon(Constants.rightDrive);
 		leftDriveEncoder = new Encoder(Constants.leftDriveEncoderA, Constants.leftDriveEncoderB, Constants.isLeftDriveEncoderFlipped, EncodingType.k4X);
-		rightDriveEncoder = new Encoder(Constants.rightDriveEncoderA, Constants.rightDriveEncoderB, isShifting, EncodingType.k4X);
+		leftDriveEncoder.setDistancePerPulse(Gains.Drive.EncoderTicksPerRev);
+		rightDriveEncoder = new Encoder(Constants.rightDriveEncoderA, Constants.rightDriveEncoderB, Constants.isRightDruveEncoderFlipped, EncodingType.k4X);
+		rightDriveEncoder.setDistancePerPulse(Gains.Drive.EncoderTicksPerRev);
 		shifter = new Solenoid(Constants.shifter);
-		navX = new AHRS(SPI.Port.kMXP, (byte) 100);
+		navX = new AHRS(SPI.Port.kMXP);
+		gyro = new AnalogGyro(Constants.gyro);
 		
+	}
+	
+	public void setDistanceTarget(double distance, double velocity) {
+		double whatVelocity = Math.min(Gains.Drive.ROBOT_MAX_VELOCITY, Math.max(velocity, 0));
+		controller = new DriveLineController(getRobotPose(), distance, whatVelocity);
+	}
+	
+	public void setDistanceTarget(double distance) {
+		setDistanceTarget(distance,Gains.Drive.ROBOT_MAX_VELOCITY);
+	}
+	
+	public void setTurnTarget(double angle, double velocity) {
+		double whatVelocity = Math.min(Gains.Drive.ROBOT_MAX_ROTATIONAL_VELOCITY, Math.max(velocity,  0));
+		controller = new TurnInPlaceController(getRobotPose(), angle, whatVelocity);
+	}
+	
+	public void setTurnTarget(double angle) {
+		setTurnTarget(angle, Gains.Drive.ROBOT_MAX_ROTATIONAL_VELOCITY);
 	}
 	
 	public void shift(boolean triggerShift) {
@@ -77,55 +105,18 @@ public class Drivebase extends Subsystem implements Thread {
 	public void clearSensors() {
 		leftDriveEncoder.reset();
 		rightDriveEncoder.reset();
+		gyro.reset();
 	}
 
 	
 	public DrivetrainOutput cheesy(double throttle, double turn) {
 		
-		throttle = (Math.abs(throttle) > Math.abs(0.01))? throttle : 0.0;
-		turn = (Math.abs(turn) > Math.abs(0.01))? turn : 0.0;
+		throttle = (Math.abs(throttle) > Math.abs(0.03))? throttle : 0.0;
+		turn = (Math.abs(turn) > Math.abs(0.03))? turn : 0.0;
 		
-		double morePower;
-		double turnPower;
-		
-		if(throttle == 0.0){
-			if(Math.abs(throttle) < 0.2){
-				double alpha = 0.1;
-						QSA = (1-alpha) * QSA + alpha * ((Math.abs(turn) > Math.abs(1.0))? turn: 0.0) * 2;
-			}
-			morePower = 1.0;
-			turnPower = turn;
-		}else{
-		
-			morePower = 0.0;
-			turnPower = Math.abs(throttle) * turn *turnSensitivity - QSA;
-			if(QSA > 1) {
-				QSA-=1;
-			}else if(QSA < -1){
-				QSA += 1;
-			}else{
-				QSA = 0.0;
-			}
-		}
-		
-		double right = throttle + turnPower;
-		double left = throttle - turnPower;
-		
-		if(left > 1.0){
-			right += morePower * (left-1.0);
-			left = 1.0;
-		}else if(right > 1.0){
-			left += morePower * (right-1.0);
-			right = 1.0;
-		}else if(left < -1.0){
-			right -= morePower * (-1.0 - left);
-			left = -1.0;
-		}else if(right < -1.0){
-			left -= morePower * (-1.0 - right);
-			right=1.0;
-			
-		}
-		
+		double right = throttle + turn;
+		double left = throttle - turn;	
+				
 		return new DrivetrainOutput(left, right);
 	}
 
@@ -136,16 +127,30 @@ public class Drivebase extends Subsystem implements Thread {
 		setLeftRightPower(new DrivetrainOutput(0.0, 0.0));
 		
 	}
+	
+	public double averageDistance() {
+		return (leftDriveEncoder.getDistance() + rightDriveEncoder.getDistance())/2;
+	}
 
+	public Pose getRobotPose() {
+		pose.reset(leftDriveEncoder.getDistance(),
+				rightDriveEncoder.getDistance(),
+				leftDriveEncoder.getRate(),
+				rightDriveEncoder.getRate(),
+				gyro.getAngle(),
+				gyro.getRate());
+		return pose;
+	}
 
 	public void update() {
-		SmartDashboard.putNumber("Left Encoder Dist (Inches)", leftDriveEncoder.get());
-		SmartDashboard.putNumber("Left Encoder Velocity (Inches/Sec)", leftDriveEncoder.getRate());
-		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.get());
-		SmartDashboard.putNumber("Right Encoder Velocity (Inches/Sec)", rightDriveEncoder.getRate());
-		SmartDashboard.putNumber("nav x angle?", navX.getAngle());
-		SmartDashboard.putNumber("nav x fused heading", navX.getFusedHeading());
-		SmartDashboard.putBoolean("Drive Controller Status (Should on be Active in auton)", (controller == null)? true : false);
+		SmartDashboard.putNumber("Left Encoder Dist (Inches)", leftDriveEncoder.getDistance());
+		SmartDashboard.putNumber("Left Encoder Velocity (Inches per Sec)", leftDriveEncoder.getRate());
+		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.getDistance());
+		SmartDashboard.putNumber("Right Encoder Velocity (Inches per Sec)", rightDriveEncoder.getRate());
+		SmartDashboard.putNumber("Robot Angle", gyro.getAngle());
+		SmartDashboard.putNumber("Rate of Rotation", gyro.getRate());
+		SmartDashboard.putBoolean("Is high gear", isHighGear());
+		SmartDashboard.putBoolean("Drive Controller Status (Should on be True in auton)", (controller == null)? false : true);
 		
 	}
 
@@ -155,7 +160,7 @@ public class Drivebase extends Subsystem implements Thread {
 		if(controller == null) {
 			return;
 		}
-		
+		setLeftRightPower(controller.update(getRobotPose()));
 	}
 
 }
