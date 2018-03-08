@@ -4,7 +4,7 @@ import ca.team4519.powerup.auton.tasks.Task;
 
 public abstract class BaseAutoMode {
 	
-	protected double loopRate = 1.0/100.0;
+	protected double loopRate = 1.0/200.0;
 	protected boolean isRunning = false;
 	
 	protected abstract void sequence() throws AutonException;
@@ -27,7 +27,7 @@ public abstract class BaseAutoMode {
 	}
 	
 	public boolean isRunning() {
-		return isRunning();
+		return isRunning;
 	}
 	
 	public boolean isActiveWithGarbageCollection() throws AutonException {
