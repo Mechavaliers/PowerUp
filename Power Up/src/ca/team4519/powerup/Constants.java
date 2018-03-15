@@ -50,7 +50,11 @@ public class Constants {
 		
 		//All units are in inches & Degrees
 		
-		public static final double autoLine = 10.0;	//Distance from diamond plate in INCHES	//TODO Update with real value!
+		public static final double autoLine = 125.0;	//Distance from diamond plate in INCHES	//TODO Update with real value!
+		public static final double switchFront = 140.0;
+		public static final double switchMid = 168.0;
+		public static final double switchBack = 196.0;
+		public static final double scaleFront = 299.65;
 	}
 	
 }

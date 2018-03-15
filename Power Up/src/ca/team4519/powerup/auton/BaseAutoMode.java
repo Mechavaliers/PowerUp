@@ -11,6 +11,11 @@ public abstract class BaseAutoMode {
 	
 	public abstract void init();
 	
+	public abstract void LRL() throws AutonException;
+	public abstract void RLR() throws AutonException;
+	public abstract void LLL() throws AutonException;
+	public abstract void RRR() throws AutonException;
+	
 	public void run() {
 		isRunning = true;
 		try {

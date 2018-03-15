@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 
@@ -32,8 +33,7 @@ public class Drivebase extends Subsystem implements Thread {
 	private final AHRS navX;
 	AnalogGyro gyro;
 	
-	private double QSA;
-	private final double turnSensitivity = 1.0;
+	private final BuiltInAccelerometer RIO_IMU;
 	
 	private boolean isShifting;
 	
@@ -62,6 +62,7 @@ public class Drivebase extends Subsystem implements Thread {
 		shifter = new Solenoid(Constants.shifter);
 		navX = new AHRS(SPI.Port.kMXP);
 		gyro = new AnalogGyro(Constants.gyro);
+		RIO_IMU = new BuiltInAccelerometer();
 		
 	}
 	
@@ -151,6 +152,12 @@ public class Drivebase extends Subsystem implements Thread {
 		SmartDashboard.putNumber("Rate of Rotation", gyro.getRate());
 		SmartDashboard.putBoolean("Is high gear", isHighGear());
 		SmartDashboard.putBoolean("Drive Controller Status (Should on be True in auton)", (controller == null)? false : true);
+		
+		//Converting G-Force to f/s/s fps/s
+		SmartDashboard.putNumber("Robo Rio IMU X direction acceleration", (RIO_IMU.getX() * 32.17));
+		SmartDashboard.putNumber("Robo Rio IMU Y direction acceleration", (RIO_IMU.getY() * 32.17));
+		SmartDashboard.putNumber("Robo Rio IMU Z direction acceleration", (RIO_IMU.getZ() * 32.17));
+		
 		
 	}
 

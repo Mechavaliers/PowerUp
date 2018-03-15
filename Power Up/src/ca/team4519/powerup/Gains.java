@@ -11,14 +11,14 @@ public class Gains {
 		public static double PATH_TOLLERANCE = 0.25;	//TODO Update this
 		
 		//	Inches/Seconds
-		public static double ROBOT_MAX_VELOCITY= 180.0;	//TODO Update this
+		public static double ROBOT_MAX_VELOCITY= 180.0;	
 		public static double ROBOT_MAX_ACCELERATION = 45.0;	//TODO Update this
 		public static double ROBOT_MAX_ROTATIONAL_VELOCITY = 360.0;	//TODO Update this
 		public static double ROBOT_MAX_ROTATIONAL_ACCELERATION = 250.0;	//TODO Update this
 		public static double Wheelbase_Width = 35.25;	//TODO Update this
 		public static double Wheelbase_Length = 39.25; 	//TODO Update this
 		public static double EncoderTicksPerRev =(( 2 * Math.PI * 3.125 ) / 256);	
-		public static double WheelSize_Inches = 6.250;	//TODO Update this
+		public static double WheelSize_Inches = 6.250;
 		
 		
 		public static double Dist_P = 0.1;	//TODO Tune this
@@ -37,6 +37,7 @@ public class Gains {
 		public static double Turn_D = 0.00; // 0.015	//TODO Tune this
 		public static double Turn_V = 1 / 360; //0.05	//TODO Tune this
 		public static double Turn_A = 0.0; //0.00225	//TODO Tune this
+		public static double Turn_F = 0.01; //TODO Tune This
 		public static double Turn_Tollerance = 0.0225; 
 	}
 	

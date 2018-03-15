@@ -31,6 +31,7 @@ public class Robot extends MechaIterativeRobot {
 	Joystick Steven = new Joystick(1);
 	
 	RevAirPressureSensor PSI;
+	DriverStation ds;
 	
 	public void robotInit() {
 		PSI = new RevAirPressureSensor(0);
@@ -57,6 +58,9 @@ public class Robot extends MechaIterativeRobot {
 
 	}
 
+	public String getAutoFieldConfig() {
+		return ds.getGameSpecificMessage();
+	}
 
 	public void autonomousInit() {
 		Drivebase.grabInstance().clearSensors();

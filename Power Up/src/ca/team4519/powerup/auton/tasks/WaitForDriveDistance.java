@@ -1,19 +1,20 @@
 package ca.team4519.powerup.auton.tasks;
 
+import ca.team4519.powerup.Gains;
+
 public class WaitForDriveDistance extends TimeoutTask {
 
 	protected double distance;
-	protected boolean direction;
+	protected boolean forwards;
 	
-	public WaitForDriveDistance(double distance, boolean direction, double timeout) {
+	public WaitForDriveDistance(double distance, boolean forwards, double timeout) {
 		super(timeout);
 		this.distance = distance;
-		this.direction = direction;
+		this.forwards = forwards;
 	}
 	
 	@Override
 	public boolean done() {
-		return (distance == drive.averageDistance()) || super.done();
+		return ((forwards ? drive.averageDistance() >= distance-Gains.Drive.Dist_Tollerance : drive.averageDistance() <= distance-Gains.Drive.Dist_Tollerance) || super.done());
 	}
-
 }

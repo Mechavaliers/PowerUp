@@ -10,6 +10,8 @@ public class CrossAutoLine extends AutoMode{
 	
 	@Override
 	protected void sequence() throws AutonException {
+		
+		
 		claw.hold();
 		Timer.delay(0.125);
 		lift.changeHeight(5);

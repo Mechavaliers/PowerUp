@@ -15,4 +15,28 @@ public class OneCubeRightSwitch extends AutoMode{
 		
 	}
 
+	@Override
+	public void LRL() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RLR() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void LLL() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RRR() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

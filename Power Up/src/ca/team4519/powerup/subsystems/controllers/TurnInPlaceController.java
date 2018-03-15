@@ -33,7 +33,7 @@ public class TurnInPlaceController implements Controllers{
 	
 	public DrivetrainOutput update(Pose pose) {
 		controller.update(pose.robotAngle(), pose.rotationalVelocity());
-		double turn = controller.get();
+		double turn = controller.get() + Gains.Drive.Turn_F;
 		return new DrivetrainOutput(-turn, turn);
 	}
 
