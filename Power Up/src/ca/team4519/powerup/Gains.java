@@ -11,7 +11,7 @@ public class Gains {
 		public static double PATH_TOLLERANCE = 0.25;	//TODO Update this
 		
 		//	Inches/Seconds
-		public static double ROBOT_MAX_VELOCITY= 180.0;	
+		public static double ROBOT_MAX_VELOCITY= 180.0;			//CHANGE AT COMP
 		public static double ROBOT_MAX_ACCELERATION = 45.0;	//TODO Update this
 		public static double ROBOT_MAX_ROTATIONAL_VELOCITY = 360.0;	//TODO Update this
 		public static double ROBOT_MAX_ROTATIONAL_ACCELERATION = 250.0;	//TODO Update this
@@ -24,7 +24,7 @@ public class Gains {
 		public static double Dist_P = 0.1;	//TODO Tune this
 		public static double Dist_I = 0.0;	//TODO tune this
 		public static double Dist_D = 0.0;	//TODO Tune this
-		public static double Dist_V = 1 / 180.0;
+		public static double Dist_V = 1 / 180.0;			//CHANGE AT COMP
 		public static double Dist_A = 0;	//TODO Tune this
 		public static double DistTurn_P = 1.0 / 22.5;	//TODO Tune this
 		public static double DistTurn_I = 0.0;	//TODO Tune this
@@ -32,10 +32,10 @@ public class Gains {
 		public static double Dist_Tollerance = 0.0;	// + or - target distance
 
 		//This works in Radians
-		public static double Turn_P = 1.0 / 22.5; //0.0825	//TODO Tune this
+		public static double Turn_P = 0.0175; //0.0825	//TODO Tune this
 		public static double Turn_I = 0.0;	//TODO Tune this
 		public static double Turn_D = 0.00; // 0.015	//TODO Tune this
-		public static double Turn_V = 1 / 360; //0.05	//TODO Tune this
+		public static double Turn_V = 1 / 300; //0.05	//TODO Tune this
 		public static double Turn_A = 0.0; //0.00225	//TODO Tune this
 		public static double Turn_F = 0.01; //TODO Tune This
 		public static double Turn_Tollerance = 0.0225; 

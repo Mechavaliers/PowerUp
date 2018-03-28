@@ -54,4 +54,28 @@ public class CrossAutoLine extends AutoMode{
 		
 	}
 
+	@Override
+	public void LRL() throws AutonException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RLR() throws AutonException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void LLL() throws AutonException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void RRR() throws AutonException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -6,6 +6,8 @@ import ca.team4519.powerup.auton.mdoes.CrossAutoLine;
 import ca.team4519.powerup.auton.mdoes.CrossAutoLineLate;
 import ca.team4519.powerup.auton.mdoes.OneCubeLeftSwitch;
 import ca.team4519.powerup.auton.mdoes.OneCubeRightSwitch;
+import ca.team4519.powerup.auton.mdoes.StartLeft;
+import ca.team4519.powerup.auton.mdoes.StartRight;
 import ca.team4519.powerup.subsystems.Claw;
 import ca.team4519.powerup.subsystems.Drivebase;
 import ca.team4519.powerup.subsystems.Lift;
@@ -41,19 +43,8 @@ public class Robot extends MechaIterativeRobot {
 		teleopLoop.addThread(Drivebase.grabInstance());
 		teleopLoop.addThread(Lift.grabInstance());
 		
-		auton.addDefault("Cross Auto Line", new CrossAutoLine());
-		auton.addObject("Cross Auton Line Late", new CrossAutoLineLate());
-		auton.addObject("1 Cube - Left Switch", new OneCubeLeftSwitch());
-		auton.addObject("1 Cube - Right Switch",  new OneCubeRightSwitch());
-		auton.addObject("2 Cube - Left Scale and Switch", null);
-		auton.addObject("2 Cube - Left Scale", null);
-		auton.addObject("2 Cube - Right Scale and Switch", null);
-		auton.addObject("2 Cube - Right Scale", null);
-		auton.addObject("2 Cube - Switch Front", null);
-		auton.addObject("2 Cube - Exchange then Switch", null);
-		auton.addObject("2 Cube - Switch Back", null);
-		auton.addObject("3 Cube - Left", null);
-		auton.addObject("3 Cube - Right", null);
+		auton.addObject("Start Left", new StartLeft());
+		auton.addObject("Start Right", new StartRight());
 		SmartDashboard.putData(auton);
 
 	}
@@ -72,6 +63,7 @@ public class Robot extends MechaIterativeRobot {
 		autonLoop.start();
 		mode.init();
 		autonLoopRunner.start();
+		System.out.println(mode.readPlates());
 
 	}
 
@@ -81,6 +73,8 @@ public class Robot extends MechaIterativeRobot {
 
 
 	public void teleopInit() {
+		autonLoop.stop();
+		Drivebase.grabInstance().disableSubsystem();
 		Drivebase.grabInstance().clearSensors();
 		Lift.grabInstance().clearSensors();
 		teleopLoop.start();
