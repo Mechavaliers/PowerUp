@@ -121,6 +121,7 @@ public class Robot extends MechaIterativeRobot {
 		Lift.grabInstance().update();
 		Claw.grabInstance().update();
 		SmartDashboard.putNumber("Stored Air Pressure", PSI.getAirPressurePsi());
+		SmartDashboard.putBoolean("Safe Reset", safeReset);
 	}
 
 }
