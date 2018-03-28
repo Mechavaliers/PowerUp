@@ -35,7 +35,10 @@ public class Robot extends MechaIterativeRobot {
 	RevAirPressureSensor PSI;
 	DriverStation ds;
 	
+	private boolean safeReset;
+	
 	public void robotInit() {
+		safeReset = true;
 		PSI = new RevAirPressureSensor(0);
 		autonLoop.addThread(Drivebase.grabInstance());;
 		autonLoop.addThread(Lift.grabInstance());
@@ -59,7 +62,7 @@ public class Robot extends MechaIterativeRobot {
 		
 		AutoMode mode = auton.getSelected();
 		autonLoopRunner.selectAuto(mode);
-		
+		safeReset = false;
 		autonLoop.start();
 		mode.init();
 		autonLoopRunner.start();
@@ -76,7 +79,9 @@ public class Robot extends MechaIterativeRobot {
 		autonLoop.stop();
 		Drivebase.grabInstance().disableSubsystem();
 		Drivebase.grabInstance().clearSensors();
+		if(safeReset) {
 		Lift.grabInstance().clearSensors();
+		}
 		teleopLoop.start();
 		SmartDashboard.putNumber("Lift Power", 0.0);
 	}
