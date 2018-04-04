@@ -30,12 +30,12 @@ public class Claw extends Subsystem{
 	}
 	
 	public void spinMe(boolean in, boolean out, boolean soft) {
-		if (in) {
+		if (soft) {
+			soft();
+		}else if (in) {
 			intake();
 		}else if (out) {
 			spit();
-		}else if(soft){
-			soft();
 		}else {
 			hold();
 		}
