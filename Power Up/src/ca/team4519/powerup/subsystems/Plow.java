@@ -36,6 +36,14 @@ public class Plow extends Subsystem implements Thread {
 		}
 		
 	}
+	
+	public void deploy() {
+		plowControl.set(true);
+	}
+	
+	public void stow() {
+		plowControl.set(false);
+	}
 
 	public void setPlow(boolean wantPlow) {
 		plowControl.set(!wantPlow);
