@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class StartRight extends AutoMode{
 
+	private double startTime = 0;
 	
 	protected double plateAssignment;
 	@Override
@@ -26,12 +27,15 @@ public class StartRight extends AutoMode{
 
 	@Override
 	public void init() {
+		startTime = Timer.getFPGATimestamp();
+		plow.deploy();
 		plateAssignment = readPlates();
 		
 	}
 
 	@Override
 	public void LRL() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(252.5);
 		lift.changeHeight(switchPos);
@@ -40,20 +44,23 @@ public class StartRight extends AutoMode{
 		waitForTurn(-24.5, false, 1.250);
 		drive.clearSensors();
 		drive.setDistanceTarget(30);
-		//plow.setPlow(true);
 		waitForDist(30, true, 1.5);
 		lift.changeHeight(Constants.ElevatorConstants.HighScaleHeight);
-		Timer.delay(5.0);
+		waitForLift(Constants.ElevatorConstants.HighScaleHeight, true, 3.125);
+		Timer.delay(0.25);
 		claw.spit();
 		Timer.delay(1.0);
+		System.out.println("Shot cube at: " + (Timer.getFPGATimestamp() - startTime));
 		claw.off();
-		//plow.setPlow(false);
 		lift.changeHeight(intake);
+		waitForLift(intake, false, 3.125);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 		
 	}
 
 	@Override
 	public void RLR() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(155);
 		lift.changeHeight(switchPos);
@@ -67,38 +74,43 @@ public class StartRight extends AutoMode{
 		Timer.delay(1.0);
 		claw.off();
 		lift.changeHeight(intake);
+		waitForLift(intake, false, 3.125);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 		
 	}
 
 	@Override
 	public void LLL() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(switchMid);
+		waitForDist(switchMid, true, 3.0);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 		
 	}
 
 	@Override
 	public void RRR() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(252.5);
 		lift.changeHeight(switchPos);
 		waitForDist(252.5, true, 3.5);
 		drive.setTurnTarget(-24.5);
-		waitForTurn(-24.5, false, 2.0);
+		waitForTurn(-24.5, false, 1.250);
 		drive.clearSensors();
-		lift.changeHeight(Constants.ElevatorConstants.scaleHeight);
-		//plow.setPlow(true);
 		drive.setDistanceTarget(30);
 		waitForDist(30, true, 1.5);
 		lift.changeHeight(Constants.ElevatorConstants.HighScaleHeight);
-		wait(3.125);
+		waitForLift(Constants.ElevatorConstants.HighScaleHeight, true, 3.125);
+		Timer.delay(0.25);
 		claw.spit();
 		Timer.delay(1.0);
+		System.out.println("Shot cube at: " + (Timer.getFPGATimestamp() - startTime));
 		claw.off();
 		lift.changeHeight(intake);
-		//plow.setPlow(false);
-		
-		// TODO Auto-generated method stub
+		waitForLift(intake, false, 3.125);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 		
 	}
 

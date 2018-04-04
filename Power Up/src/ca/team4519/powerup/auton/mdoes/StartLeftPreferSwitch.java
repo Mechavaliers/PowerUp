@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class StartLeftPreferSwitch  extends AutoMode {
 
 	protected double plateAssignment;
+	private double startTime = 0;
 	
 	@Override
 	protected void sequence() throws AutonException {
@@ -26,12 +27,15 @@ public class StartLeftPreferSwitch  extends AutoMode {
 
 	@Override
 	public void init() {
+		startTime = Timer.getFPGATimestamp();
+		plow.deploy();
 		plateAssignment = readPlates();
 	}
 
 	@Override
 	public void LRL() throws AutonException {
 		claw.hold();
+		plow.deploy();
 		drive.setDistanceTarget(155);
 		lift.changeHeight(switchPos);
 		waitForDist(155, true, 3.5);
@@ -44,10 +48,13 @@ public class StartLeftPreferSwitch  extends AutoMode {
 		Timer.delay(1.0);
 		claw.off();
 		lift.changeHeight(intake);
+		waitForLift(intake, false, 3.125);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 	}
 
 	@Override
 	public void RLR() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(252.5);
 		lift.changeHeight(switchPos);
@@ -55,20 +62,23 @@ public class StartLeftPreferSwitch  extends AutoMode {
 		drive.setTurnTarget(24.5);
 		waitForTurn(24.5, true, 1.250);
 		drive.clearSensors();
-		//plow.setPlow(true);
 		drive.setDistanceTarget(30);
 		waitForDist(30, true, 1.5);
 		lift.changeHeight(Constants.ElevatorConstants.HighScaleHeight);
-		Timer.delay(4.0);
+		waitForLift(Constants.ElevatorConstants.HighScaleHeight, true, 3.125);
+		Timer.delay(0.25);
 		claw.spit();
 		Timer.delay(1.0);
+		System.out.println("Shot cube at: " + (Timer.getFPGATimestamp() - startTime));
 		claw.off();
 		lift.changeHeight(intake);
-		//plow.setPlow(false);
+		waitForLift(intake, false, 3.125);
+		System.out.println("Auto Complete. Runtime is: " + (Timer.getFPGATimestamp() - startTime));
 	}
 
 	@Override
 	public void LLL() throws AutonException {
+		plow.deploy();
 		claw.hold();
 		drive.setDistanceTarget(155);
 		lift.changeHeight(switchPos);
