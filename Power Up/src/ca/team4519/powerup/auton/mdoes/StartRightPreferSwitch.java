@@ -5,7 +5,7 @@ import ca.team4519.powerup.auton.AutoMode;
 import ca.team4519.powerup.auton.AutonException;
 import edu.wpi.first.wpilibj.Timer;
 
-public class StartRight extends AutoMode{
+public class StartRightPreferSwitch extends AutoMode{
 
 	
 	protected double plateAssignment;
@@ -80,23 +80,18 @@ public class StartRight extends AutoMode{
 	@Override
 	public void RRR() throws AutonException {
 		claw.hold();
-		drive.setDistanceTarget(252.5);
+		drive.setDistanceTarget(155);
 		lift.changeHeight(switchPos);
-		waitForDist(252.5, true, 3.5);
-		drive.setTurnTarget(-24.5);
-		waitForTurn(-24.5, false, 2.0);
+		waitForDist(155, true, 3.5);
+		drive.setTurnTarget(-90.0);
+		waitForTurn(-90.0, false, 1.750);
 		drive.clearSensors();
-		lift.changeHeight(Constants.ElevatorConstants.scaleHeight);
-		//plow.setPlow(true);
-		drive.setDistanceTarget(30);
-		waitForDist(30, true, 1.5);
-		lift.changeHeight(Constants.ElevatorConstants.HighScaleHeight);
-		wait(3.125);
+		drive.setDistanceTarget(15);
+		waitForDist(15, true, 1.5);
 		claw.spit();
 		Timer.delay(1.0);
 		claw.off();
 		lift.changeHeight(intake);
-		//plow.setPlow(false);
 		
 		// TODO Auto-generated method stub
 		

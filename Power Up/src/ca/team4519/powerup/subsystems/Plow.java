@@ -38,7 +38,7 @@ public class Plow extends Subsystem implements Thread {
 	}
 
 	public void setPlow(boolean wantPlow) {
-		plowControl.set(wantPlow);
+		plowControl.set(!wantPlow);
 	}
 	
 	public PlowPose getPlowPose() {

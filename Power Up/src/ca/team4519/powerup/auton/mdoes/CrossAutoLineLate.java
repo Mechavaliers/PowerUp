@@ -7,7 +7,11 @@ public class CrossAutoLineLate extends AutoMode{
 	
 	@Override
 	protected void sequence() throws AutonException {
+		wait(12.5);
+		drive.setDistanceTarget(switchMid);
 		
+		waitForDist(switchMid, true, 2.0);
+		//plow.setPlow(true);
 	}
 
 	@Override

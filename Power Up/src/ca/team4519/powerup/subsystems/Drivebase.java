@@ -106,7 +106,7 @@ public class Drivebase extends Subsystem implements Thread {
 	public void clearSensors() {
 		leftDriveEncoder.reset();
 		rightDriveEncoder.reset();
-		gyro.reset();
+		navX.reset();
 	}
 
 	
@@ -138,8 +138,8 @@ public class Drivebase extends Subsystem implements Thread {
 				rightDriveEncoder.getDistance(),
 				leftDriveEncoder.getRate(),
 				rightDriveEncoder.getRate(),
-				gyro.getAngle(),
-				gyro.getRate());
+				navX.getAngle(),
+				navX.getRate());
 		return pose;
 	}
 
@@ -148,16 +148,10 @@ public class Drivebase extends Subsystem implements Thread {
 		SmartDashboard.putNumber("Left Encoder Velocity (Inches per Sec)", leftDriveEncoder.getRate());
 		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.getDistance());
 		SmartDashboard.putNumber("Right Encoder Velocity (Inches per Sec)", rightDriveEncoder.getRate());
-		SmartDashboard.putNumber("Robot Angle", gyro.getAngle());
-		SmartDashboard.putNumber("Rate of Rotation", gyro.getRate());
 		SmartDashboard.putBoolean("Is high gear", isHighGear());
 		SmartDashboard.putBoolean("Drive Controller Status (Should on be True in auton)", (controller == null)? false : true);
-		
-		//Converting G-Force to f/s/s fps/s
-		SmartDashboard.putNumber("Robo Rio IMU X direction acceleration", (RIO_IMU.getX() * 32.17));
-		SmartDashboard.putNumber("Robo Rio IMU Y direction acceleration", (RIO_IMU.getY() * 32.17));
-		SmartDashboard.putNumber("Robo Rio IMU Z direction acceleration", (RIO_IMU.getZ() * 32.17));
-		
+        SmartDashboard.putNumber("NavX fused Angle", navX.getFusedHeading());	
+        SmartDashboard.putNumber("NavX Angle", navX.getAngle());	
 		
 	}
 

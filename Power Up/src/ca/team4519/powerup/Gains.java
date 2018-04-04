@@ -24,7 +24,7 @@ public class Gains {
 		public static double Dist_P = 0.1;	//TODO Tune this
 		public static double Dist_I = 0.0;	//TODO tune this
 		public static double Dist_D = 0.0;	//TODO Tune this
-		public static double Dist_V = 1 / 180.0;			//CHANGE AT COMP
+		public static double Dist_V = 1 / ROBOT_MAX_VELOCITY;			//CHANGE AT COMP
 		public static double Dist_A = 0;	//TODO Tune this
 		public static double DistTurn_P = 1.0 / 22.5;	//TODO Tune this
 		public static double DistTurn_I = 0.0;	//TODO Tune this
@@ -50,15 +50,15 @@ public class Gains {
 		
 		public static double Lift_Tollerance = 2.0; //TODO pick a value
 		
-		public static double LIFT_MAX_VELOCITY = 30.0;
-		public static double LIFT_MAX_ACCELERATION = 12.5;	//TODO calculate this
+		public static double LIFT_MAX_VELOCITY = 50; // 30 is a known working nuber
+		public static double LIFT_MAX_ACCELERATION = 40.0;	//TODO calculate this 12.5 worked
 				
 		public static double LiftAndCube_F = 0.0;	//TODO Tune this
 		public static double LiftAndCubeUp_P = 0.9;	//TODO Tune this
-		public static double LiftAndCubeUp_I = 0.0;	//TODO Tune this
+		public static double LiftAndCubeUp_I = 0.5;	//TODO Tune this
 		public static double LiftAndCubeUp_D = 0.0;	//TODO Tune this
-		public static double LiftAndCubeUp_V = 1 / 25.0;	//TODO Tune this//
-		public static double LiftAndCubeUp_A = 0;	//TODO Tune this
+		public static double LiftAndCubeUp_V = 1.0 / 50.0;	// 1/25 works and is solid
+		public static double LiftAndCubeUp_A = 0.002; 	//TODO Tune this
 		
 		public static double LiftAndCubeDown_P = 0.0;	//TODO Tune this
 		public static double LiftAndCubeDown_I = 0.0;	//TODO Tune this

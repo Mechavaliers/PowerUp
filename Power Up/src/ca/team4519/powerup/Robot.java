@@ -4,10 +4,11 @@ import ca.team4519.powerup.auton.AutoMode;
 import ca.team4519.powerup.auton.AutonRunner;
 import ca.team4519.powerup.auton.mdoes.CrossAutoLine;
 import ca.team4519.powerup.auton.mdoes.CrossAutoLineLate;
-import ca.team4519.powerup.auton.mdoes.OneCubeLeftSwitch;
-import ca.team4519.powerup.auton.mdoes.OneCubeRightSwitch;
+import ca.team4519.powerup.auton.mdoes.StartCenter;
 import ca.team4519.powerup.auton.mdoes.StartLeft;
+import ca.team4519.powerup.auton.mdoes.StartLeftPreferSwitch;
 import ca.team4519.powerup.auton.mdoes.StartRight;
+import ca.team4519.powerup.auton.mdoes.StartRightPreferSwitch;
 import ca.team4519.powerup.subsystems.Claw;
 import ca.team4519.powerup.subsystems.Drivebase;
 import ca.team4519.powerup.subsystems.Lift;
@@ -46,8 +47,13 @@ public class Robot extends MechaIterativeRobot {
 		teleopLoop.addThread(Drivebase.grabInstance());
 		teleopLoop.addThread(Lift.grabInstance());
 		
+		auton.addDefault("Cross Auto Line", new CrossAutoLine());
+		auton.addObject("Last Second Cross", new CrossAutoLineLate());
 		auton.addObject("Start Left", new StartLeft());
-		auton.addObject("Start Right", new StartRight());
+		auton.addObject("Start Left Prefer Switch", new StartLeftPreferSwitch());
+		auton.addObject("Start Center", new StartCenter());
+		auton.addObject("Start Right", new StartRight());	
+		auton.addObject("Start Right Prefer Switch", new StartRightPreferSwitch());
 		SmartDashboard.putData(auton);
 
 	}
