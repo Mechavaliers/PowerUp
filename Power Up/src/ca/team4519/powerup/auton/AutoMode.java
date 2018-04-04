@@ -1,10 +1,12 @@
 package ca.team4519.powerup.auton;
 
 import ca.team4519.powerup.Constants;
+import ca.team4519.powerup.auton.tasks.Task;
 import ca.team4519.powerup.auton.tasks.TimeoutTask;
 import ca.team4519.powerup.auton.tasks.WaitForCube;
 import ca.team4519.powerup.auton.tasks.WaitForDriveDistance;
 import ca.team4519.powerup.auton.tasks.WaitForTurn;
+import ca.team4519.powerup.auton.tasks.WaitForLiftHeight;
 import ca.team4519.powerup.subsystems.Drivebase;
 import ca.team4519.powerup.subsystems.Lift;
 import ca.team4519.powerup.subsystems.Claw;
@@ -57,9 +59,12 @@ public abstract class AutoMode extends BaseAutoMode {
 	public void waitForTurn(double angle, boolean positive, double timeout) throws AutonException {
 		runTask(new WaitForTurn(angle, positive, timeout));
 	}
-	public void waitForCube(double seconds) throws AutonException{
+	public void waitForCube(double seconds) throws AutonException {
 		runTask(new WaitForCube(seconds));
 	}
 	
+	public void waitForLift(double height, boolean up, double timeout) throws AutonException {
+		runTask(new WaitForLiftHeight(height, up, timeout));
+	}
 
 }

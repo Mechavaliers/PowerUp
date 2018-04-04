@@ -104,6 +104,10 @@ public class Lift  extends Subsystem implements Thread {
 		liftEncoder.reset();
 	}
 
+	public double getHeight() {
+		return( liftEncoder.getDistance());
+	}
+	
 
 	public void disableSubsystem() {
 		liftTalon.set(ControlMode.Disabled, 0);
