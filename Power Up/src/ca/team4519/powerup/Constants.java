@@ -39,10 +39,10 @@ public class Constants {
 		
 		public static final double homePos = 0.0;	//TODO Update this with real value!
 		public static final double travelPos = 10.0;
-		public static final double switchHeight = 25.0;	//TODO Update this with real value!
+		public static final double switchHeight = 31.0;	//TODO Update this with real value!
 		public static final double lowScaleHeight = 40.0;	//TODO Update this with real value!
-		public static final double scaleHeight = 50.0;	//qTODO Update this with real value!
-		public static final double HighScaleHeight = 77.0;	//TODO Update this with real value!
+		public static final double scaleHeight = 50.0;	//TODO Update this with real value!
+		public static final double HighScaleHeight = 77.0;
 	}
 	
 	public static final class AutoDistances {
