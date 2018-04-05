@@ -109,10 +109,8 @@ public class Robot extends MechaIterativeRobot {
 			Lift.grabInstance().changeHeight(Constants.ElevatorConstants.scaleHeight);
 		}else if (Steven.getRawButton(5)) {
 			Lift.grabInstance().changeHeight(Constants.ElevatorConstants.HighScaleHeight);
-		}else if (!Lift.grabInstance().hasCube() || Steven.getRawButton(8)) {
+		}else if (Steven.getRawButton(8)) {
 			Lift.grabInstance().changeHeight(Constants.ElevatorConstants.homePos);
-		}else if(Lift.grabInstance().hasCube()) {
-			Lift.grabInstance().changeHeight(Constants.ElevatorConstants.travelPos);
 		}
 	
 		Plow.grabInstance().setPlow(Ben.getRawButton(5));
