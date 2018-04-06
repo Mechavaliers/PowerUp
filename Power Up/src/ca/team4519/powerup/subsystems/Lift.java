@@ -29,6 +29,11 @@ public class Lift  extends Subsystem implements Thread {
 		
 	public LiftPose pose = new LiftPose(0, 0, true);
 	
+	private double lastVel = 0;
+	private double accel = 0;
+	private double maxAccel = accel;
+	private final double dt = Gains.Lift.CONTROL_LOOP_TIME;
+	
 	public static Lift grabInstance() {
 		return thisInstance;
 	}
@@ -87,6 +92,7 @@ public class Lift  extends Subsystem implements Thread {
 	}
 	
 	public void loops() {
+		getAccel();
 		getLiftData();
 		if(controller == null) {
 			return;
@@ -100,6 +106,15 @@ public class Lift  extends Subsystem implements Thread {
 		return pose;
 	}
 
+	public void getAccel() {
+		double curVel = Math.abs(liftEncoder.getRate());
+		double dv = curVel - lastVel;
+		lastVel = curVel;
+		double _accel = dv/dt;
+		accel = _accel;
+		maxAccel = (Math.abs(accel) > Math.abs(maxAccel))? accel : maxAccel;
+	}
+	
 	public void clearSensors() {
 		liftEncoder.reset();
 	}
@@ -119,6 +134,8 @@ public class Lift  extends Subsystem implements Thread {
 	public void update() {
 		SmartDashboard.putNumber("Claw Height", liftEncoder.getDistance());
 		SmartDashboard.putNumber("Claw Velocity", liftEncoder.getRate());
+		SmartDashboard.putNumber("Claw Acceleration", accel);
+		SmartDashboard.putNumber("Claw Max Accel", maxAccel);
 		SmartDashboard.putBoolean("Lift Controller Status", (controller == null)? false : true);
 		SmartDashboard.putBoolean("Cube", !cubeDetector.get());
 		SmartDashboard.putNumber("Lift Output Current", liftTalon.getOutputCurrent());

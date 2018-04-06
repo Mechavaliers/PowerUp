@@ -37,6 +37,13 @@ public class Drivebase extends Subsystem implements Thread {
 	
 	private boolean isShifting;
 	
+	private final double dt = Gains.Drive.CONTROL_LOOP_TIME;
+	
+	private double lastLeftVel = 0;
+	private double lastRightVel = 0;
+	private double leftAccel = 0;
+	private double rightAccel =0;
+	
 	Pose pose = new Pose(0, 0, 0, 0, 0, 0);
 	
 	public static Drivebase grabInstance() {
@@ -132,6 +139,28 @@ public class Drivebase extends Subsystem implements Thread {
 	public double averageDistance() {
 		return (leftDriveEncoder.getDistance() + rightDriveEncoder.getDistance())/2;
 	}
+	
+	public void getAccel() {
+		getLeftAccel();
+		getRightAccel();
+	}
+	
+	public void getLeftAccel() {
+		double curVel = leftDriveEncoder.getRate();
+		double dv = curVel - lastLeftVel;
+		lastLeftVel = curVel;
+		double accel = dv/dt;
+		leftAccel = accel;
+	}
+
+	
+	public void getRightAccel() {
+		double curVel = rightDriveEncoder.getRate();
+		double dv = curVel - lastRightVel;
+		lastRightVel = curVel;
+		double accel = dv/dt;
+		rightAccel = accel;
+	}
 
 	public Pose getRobotPose() {
 		pose.reset(leftDriveEncoder.getDistance(),
@@ -146,8 +175,10 @@ public class Drivebase extends Subsystem implements Thread {
 	public void update() {
 		SmartDashboard.putNumber("Left Encoder Dist (Inches)", leftDriveEncoder.getDistance());
 		SmartDashboard.putNumber("Left Encoder Velocity (Inches per Sec)", leftDriveEncoder.getRate());
+		SmartDashboard.putNumber("Left Encoder Acceleration (Inches per sec per sec)", leftAccel);
 		SmartDashboard.putNumber("right Encoder Dist (Inches)", rightDriveEncoder.getDistance());
 		SmartDashboard.putNumber("Right Encoder Velocity (Inches per Sec)", rightDriveEncoder.getRate());
+		SmartDashboard.putNumber("Right Encoder Acceleration (Inches per sec per sec)", rightAccel);
 		SmartDashboard.putBoolean("Is high gear", isHighGear());
 		SmartDashboard.putBoolean("Drive Controller Status (Should on be True in auton)", (controller == null)? false : true);
         SmartDashboard.putNumber("NavX fused Angle", navX.getFusedHeading());	
@@ -158,6 +189,7 @@ public class Drivebase extends Subsystem implements Thread {
 
 	@Override	
 	public void loops() {
+		getAccel();
 		if(controller == null) {
 			return;
 		}
