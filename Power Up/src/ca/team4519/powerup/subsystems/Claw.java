@@ -24,8 +24,8 @@ public class Claw extends Subsystem{
 	public Claw() {
 		leftIntake = new TalonSRX(Constants.leftIntake);
 		rightIntake = new TalonSRX(Constants.rightIntake);
-		leftPlow = new Talon(5);
-		rightPlow = new Talon(6);
+		leftPlow = new Talon(6);
+		rightPlow = new Talon(5);
 		
 	}
 	
@@ -45,21 +45,21 @@ public class Claw extends Subsystem{
 	public void intake() {
 		leftIntake.set(ControlMode.PercentOutput, 0.5);
 		rightIntake.set(ControlMode.PercentOutput, -0.5);
-		leftPlow.set(0.5);
+		leftPlow.set(-0.5);
 		rightPlow.set(0.5);
 	}
 	
 	public void spit() {
 		leftIntake.set(ControlMode.PercentOutput, -0.5);
 		rightIntake.set(ControlMode.PercentOutput, 0.5);
-		leftPlow.set(-0.5);
+		leftPlow.set(0.5);
 		rightPlow.set(-0.5);
 	}
 	
 	public void soft() {
 		leftIntake.set(ControlMode.PercentOutput, 0.5);
 		rightIntake.set(ControlMode.PercentOutput, -0.5);
-		leftPlow.set(0.5);
+		leftPlow.set(-0.5);
 		rightPlow.set(0.0);
 	}
 	

@@ -68,7 +68,6 @@ public class Lift  extends Subsystem implements Thread {
 	
 	public void setPower(double power) {
 		if(liftEncoder.getDistance() <= 1 && power < 0) {
-			liftTalon.set(ControlMode.PercentOutput, 0);
 		}else {
 			liftTalon.set(ControlMode.PercentOutput, power);
 		}
